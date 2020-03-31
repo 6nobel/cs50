@@ -7,25 +7,27 @@ int main(void)
     int i;
     int j;
     int k;
+
+    //asking user for input
     do 
     {
         h = get_int("Height:  ");
     }
-    while ( h < 1 || h > 8);
+    while (h < 1 || h > 8);
    
 
     for (i = 1; i <= h; i++)
     {
-        for (k = (h-1); k >= i; k--)
+        for (k = (h - 1); k >= i; k--)
         {
-        printf(" ");
+            printf(" ");
         } 
-            for (j = 1; j <= i; j++)
-            {
+        for (j = 1; j <= i; j++)
+        {
             printf("#");
-            }
+        }
             
-    printf("\n");
+        printf("\n");
     }
  
 }
