@@ -9,38 +9,42 @@ int coins;
 
 int main(void)
 {
+// prompt user to insert cash  
     do
     {
-     d = get_float("Change owed: ");
-     }
+        d = get_float("Change owed: ");
+    }
     while (d <= 0.001);
 
-    c = round(d*100);
-
+// translating dollars to cents
+    c = round(d * 100);
+// introducing variable coins
     coins = 0;
 
-      while (c-25 >= 0)
+// quarters
+    while (c - 25 >= 0)
     {
-        c = c -25;
+        c = c - 25;
         coins++;
     }
-
-     while (c-10 >= 0)
+// dimes
+    while (c - 10 >= 0)
     {
-        c = c -10;
+        c = c - 10;
         coins++;
     }
-
-       while (c-5 >= 0)
+// nickels
+    while (c - 5 >= 0)
     {
-        c = c -5;
+        c = c - 5;
         coins++;
     }
-
-       while (c-1 >= 0)
+// cents
+    while (c - 1 >= 0)
     {
-        c = c -1;
+        c = c - 1;
         coins++;
     }
+// printout of results
     printf("%i\n", coins);
 }
