@@ -13,7 +13,7 @@ int main(void)
     {
      d = get_float("Change owed: ");
      }
-    while (d <= 0.01);
+    while (d <= 0.001);
 
     c = round(d*100);
 
