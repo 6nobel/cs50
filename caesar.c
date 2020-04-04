@@ -4,6 +4,8 @@
 #include <string.h>
 #include <ctype.h>
 
+// Program that shifts plaintext as per ceasars cipher with a key (int) that is entered as command line argument to a cipher text
+
 bool confirm_only_numbers(string input);
 
 
@@ -14,15 +16,19 @@ int main(int argc, string argv[])
         printf("usage ./ceasar key\n");
         return 1;
     }
-
+    //convert key string to number
     int k = atoi(argv[1]);
+    //promt plaintext from user
     string text = get_string("plaintext:");
+    //printout empty ciphertext line
     printf("ciphertext:");
+    // main conversation of each character
     for (int l = 0, n = strlen(text); l < n; l++)
     {
-
+        //checks if letters, if not does nothing
         if (isalpha(text[l]) > 0)
         {
+            //checks is upper case, changes formula accordingly
             if (isupper(text[l]) > 0)
             {
                 text[l]  = (text[l]  - 64 + k) % 26 + 64;
@@ -33,6 +39,7 @@ int main(int argc, string argv[])
             }
 
         }
+        //prints each letters
         printf("%c", text[l]);
     }
     printf("\n");
