@@ -15,9 +15,9 @@ int main (int argc, string argv[])
         return 1;
     }
 
-    int k = atoi (argv[1]);
-
+    int k = atoi(argv[1]);
     string text = get_string("plaintext:");
+    printf("ciphertext:");
     for (int l = 0, n = strlen(text); l < n; l++)
     {
 
@@ -33,9 +33,9 @@ int main (int argc, string argv[])
             }
 
         }
-        printf("ciphertext:%c\n", text[l] );
-        return 0;
+        printf("%c", text[l] );
     }
+    printf("\n");
 }
 //function to confirm only numbers
 bool confirm_only_numbers(string input)
@@ -43,7 +43,7 @@ bool confirm_only_numbers(string input)
     bool j;
     for (int i = 0, n = strlen(input); i < n; i++)
     {
-        if (input[i] > '0' && input[i] <= '9')
+        if (input[i] >= '0' && input[i] <= '9')
         {
             j = true;
         }
