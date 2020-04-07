@@ -33,11 +33,11 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
             int ob = image[i][j].rgbtBlue;
 
             //change Red
-            int orrtemp = round ((float) or * 0.393);
-            int ogrtemp = round ((float) og * 0.769);
-            int obrtemp = round ((float) ob * 0.189);
+            float orrtemp = (float) or * 0.393;
+            float ogrtemp = (float) og * 0.769;
+            float obrtemp = (float) ob * 0.189;
 
-            int redtemp = orrtemp + ogrtemp + obrtemp;
+            int redtemp = round(orrtemp + ogrtemp + obrtemp);
 
             if (redtemp > 255)
             {
@@ -47,11 +47,11 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
             image[i][j].rgbtRed = redtemp;
 
             //change green
-            int orgtemp = round ((float) or * 0.349);
-            int oggtemp = round ((float) og * 0.686);
-            int obgtemp = round ((float) ob * 0.168);
+            float orgtemp = (float) or * 0.349;
+            float oggtemp = (float) og * 0.686;
+            float obgtemp = (float) ob * 0.168;
 
-            int greentemp = orgtemp + oggtemp + obgtemp;
+            int greentemp = round (orgtemp + oggtemp + obgtemp);
 
             if (greentemp > 255)
             {
@@ -62,11 +62,11 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
 
 
             // change blue
-            int orbtemp = round ((float) or * 0.272);
-            int ogbtemp = round ((float) og * 0.534);
-            int obbtemp = round ((float) ob * 0.131);
+            float orbtemp = (float) or * 0.272;
+            float ogbtemp = (float) og * 0.534;
+            float obbtemp = (float) ob * 0.131;
 
-            int bluetemp = orbtemp + ogbtemp + obbtemp;
+            int bluetemp = round( orbtemp + ogbtemp + obbtemp);
 
             if (bluetemp > 255)
             {
