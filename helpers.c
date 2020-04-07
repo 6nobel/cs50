@@ -82,24 +82,21 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
 // Reflect image horizontally
 void reflect(int height, int width, RGBTRIPLE image[height][width])
 {
-    //use of a temporary array to swap values
-    int temp[3];
-    for (int j = 0; j < height; j++)
+    for (int i = 0; i < (height); i++)
     {
-        for (int i = 0; i < width / 2; i++)
+        for (int j = 0; j < (width / 2); j++)
         {
-            temp[0] = image[j][i].rgbtBlue;
-            temp[1] = image[j][i].rgbtGreen;
-            temp[2] = image[j][i].rgbtRed;
+            int tempb = image[i][j].rgbtBlue;
+            int tempg = image[i][j].rgbtGreen;
+            int tempr = image[i][j].rgbtRed;
 
-            // swap pixels with the ones on the opposite side of the picture and viceversa
-            image[j][i].rgbtBlue = image[j][width - i - 1].rgbtBlue;
-            image[j][i].rgbtGreen = image[j][width - i - 1].rgbtGreen;
-            image[j][i].rgbtRed = image[j][width - i - 1].rgbtRed;
+            image[i][j].rgbtBlue = image[i][width - j - 1].rgbtBlue;
+            image[i][j].rgbtGreen = image[i][width - j - 1].rgbtGreen;
+            image[i][j].rgbtRed = image[i][width - j - 1].rgbtRed;
 
-            image[j][width - i - 1].rgbtBlue = temp[0];
-            image[j][width - i - 1].rgbtGreen = temp[1];
-            image[j][width - i - 1].rgbtRed = temp[2];
+            image[i][width - j - 1].rgbtBlue = tempb;
+            image[i][width - j - 1].rgbtGreen = tempg;
+            image[i][width - j - 1].rgbtRed = tempr;
         }
     }
 }
