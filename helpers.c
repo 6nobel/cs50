@@ -86,9 +86,18 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
     {
         for (int j = 0; j < (width / 2); j++)
         {
-            RGBTRIPLE temp = image[i][j];
-            image[i][j] = image[i][width - j];
-            image[i][width - j] = temp;
+            int tempb = image[j][i].rgbtBlue;
+            int tempg= image[j][i].rgbtGreen;
+            int tempr = image[j][i].rgbtRed;
+
+            // swap pixels with the ones on the opposite side of the picture and viceversa
+            image[j][i].rgbtBlue = image[j][width - i - 1].rgbtBlue;
+            image[j][i].rgbtGreen = image[j][width - i - 1].rgbtGreen;
+            image[j][i].rgbtRed = image[j][width - i - 1].rgbtRed;
+
+            image[j][width - i - 1].rgbtBlue = tempb;
+            image[j][width - i - 1].rgbtGreen = tempg;
+            image[j][width - i - 1].rgbtRed = tempr;
         }
     }
 }
