@@ -9,7 +9,7 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
         for (int j = 0; j < (width); j++)
         {
             //get avarage
-            int k = round(( (float) image[i][j].rgbtRed + (float) image[i][j].rgbtGreen + (float) image[i][j].rgbtBlue) / 3);
+            int k = round(((float) image[i][j].rgbtRed + (float) image[i][j].rgbtGreen + (float) image[i][j].rgbtBlue) / 3);
 
             //assign k to all values
             image[i][j].rgbtRed = k;
@@ -44,8 +44,10 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
                 image[i][j].rgbtRed = 255;
             }
             else
-            image[i][j].rgbtRed = redtemp;
-
+            {
+                image[i][j].rgbtRed = redtemp;
+            }
+            
             //change green
             float orgtemp = or * 0.349;
             float oggtemp = og * 0.686;
@@ -58,8 +60,9 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
                 image[i][j].rgbtGreen = 255;
             }
             else
-            image[i][j].rgbtGreen = greentemp;
-
+            {
+                image[i][j].rgbtGreen = greentemp;
+            }
 
             // change blue
             float orbtemp = or * 0.272;
@@ -73,8 +76,9 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
                 image[i][j].rgbtBlue = 255;
             }
             else
-            image[i][j].rgbtBlue = bluetemp;
-
+            {
+                image[i][j].rgbtBlue = bluetemp;
+            }
         }
     }
 }
@@ -106,40 +110,47 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 {
     //temporary placeholder
     RGBTRIPLE temp[height][width];
-
+    
+    //going through every pixel
     for (int i = 0; i < (height); i++)
     {
         for (int j = 0; j < (width); j++)
-        {
+        {   
+            //temp variables to get the avarage of all R,G and B
             int tempb = 0;
             int tempg = 0;
             int tempr = 0;
             int squares = 0;
+            //help loop 1 to check if edge pixel
             for (int k = -1; k <= 1; k++)
             {
-                if (j + k < 0 || j + k > (width -1 ))
+                if (j + k < 0 || j + k > (width - 1))
                 {
                     continue;
                 }
-
+                
+                //help loop 2 to check if edge pixel
                 for (int l = -1; l <= 1; l++)
                 {
-                    if (i + l < 0 || i + l > (height -1 ))
+                    if (i + l < 0 || i + l > (height - 1))
                     {
                         continue;
                     }
-
+                    
+                    //adding colours for the total sum
                     tempb += image[i + l][j + k].rgbtBlue;
                     tempg += image[i + l][j + k].rgbtGreen;
                     tempr += image[i + l][j + k].rgbtRed;
                     squares++;
                 }
             }
-        temp[i][j].rgbtBlue = round( (float) tempb / (float) squares);
-        temp[i][j].rgbtGreen = round((float) tempg /  (float) squares);
-        temp[i][j].rgbtRed = round( (float) tempr / (float) squares);
+            //deviding sum by number of pixels around to get avarage
+            temp[i][j].rgbtBlue = round((float) tempb / (float) squares);
+            temp[i][j].rgbtGreen = round((float) tempg / (float) squares);
+            temp[i][j].rgbtRed = round(float) tempr / (float) squares);
         }
     }
+    // double loop to assign the temp to final image
     for (int i = 0; i < (height); i++)
     {
         for (int j = 0; j < (width); j++)
