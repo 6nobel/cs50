@@ -18,13 +18,65 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
 
         }
     }
-    
 }
 
 // Convert image to sepia
 void sepia(int height, int width, RGBTRIPLE image[height][width])
 {
-    return;
+    for (int i = 0; i < (height); i++)
+    {
+        for (int j = 0; j < (width); j++)
+        {
+            //helper variables
+            int or = image[i][j].rgbtRed;
+            int og = image[i][j].rgbtGreen;
+            int ob = image[i][j].rgbtBlue;
+
+            //change Red
+            int orrtemp = round ((float) or * 0.393);
+            int ogrtemp = round ((float) og * 0.769);
+            int obrtemp = round ((float) ob * 0.189);
+
+            int redtemp = orrtemp + ogrtemp + obrtemp;
+
+            if (redtemp > 255)
+            {
+                image[i][j].rgbtRed = 255;
+            }
+            else
+            image[i][j].rgbtRed = redtemp;
+
+            //change green
+            int orgtemp = round ((float) or * 0.349);
+            int oggtemp = round ((float) og * 0.686);
+            int obgtemp = round ((float) ob * 0.168);
+
+            int greentemp = orgtemp + oggtemp + obgtemp;
+
+            if (greentemp > 255)
+            {
+                image[i][j].rgbtRed = 255;
+            }
+            else
+            image[i][j].rgbtRed = greentemp;
+
+
+            // change blue
+            int orbtemp = round ((float) or * 0.272);
+            int ogbtemp = round ((float) og * 0.534);
+            int obbtemp = round ((float) ob * 0.131);
+
+            int bluetemp = orbtemp + ogbtemp + obbtemp;
+
+            if (bluetemp > 255)
+            {
+                image[i][j].rgbtRed = 255;
+            }
+            else
+            image[i][j].rgbtRed = bluetemp;
+
+        }
+    }
 }
 
 // Reflect image horizontally
