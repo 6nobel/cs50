@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     //create buffer
     unsigned char buffer[512];
 
-    int fileopen = 0;
+    int fileopen = 1;
     int filenumber = 0;
     char filename[8];
     FILE *img = NULL;
@@ -36,28 +36,18 @@ int main(int argc, char *argv[])
             //check if there is an open file, if not open a new
             if (fileopen == 0)
             {
-                sprintf(filename, "%03i.jpg", filenumber);
-                img = fopen(filename, "a");
-                fileopen++;
-                filenumber++;
-                //write buffer in file img
-                fwrite(buffer, 512, 1, img);
+                fclose (img);
             }
-            else
-            {   fclose (img);
-                sprintf(filename, "%03i.jpg", filenumber);
-                img = fopen(filename, "a");
-                fileopen++;
-                filenumber++;
 
-                //write buffer in file img
-                fwrite(buffer, 512, 1, img);
-            } 
-        
+            sprintf(filename, "%03i.jpg", filenumber);
+            img = fopen(filename, "a");
+            fileopen = 0;
+            filenumber++;
+
         }
         
     //write buffer in file img
-    if (fileopen == 0)
+    if (fileopen == 1)
     {
         continue;
     }
@@ -69,5 +59,6 @@ int main(int argc, char *argv[])
 
 //close file
 fclose(f);
+fclose(img);
 return 0;
 }
