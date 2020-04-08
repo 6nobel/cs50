@@ -27,16 +27,16 @@ int main(int argc, char *argv[])
 
 
     //read file
-    while(fread(buffer, 512, 1, f) == 1)
+    while (fread(buffer, 512, 1, f) == 1)
     {
         //check if jpeg
         if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && (buffer[3] & 0xf0) == 0xe0)
-        {   
+        {
 
             //check if there is an open file, if not open a new
             if (fileopen == 0)
             {
-                fclose (img);
+                fclose(img);
             }
 
             sprintf(filename, "%03i.jpg", filenumber);
@@ -45,20 +45,20 @@ int main(int argc, char *argv[])
             filenumber++;
 
         }
-        
-    //write buffer in file img
-    if (fileopen == 1)
-    {
-        continue;
-    }
-    else 
-    {
-        fwrite(buffer, 512, 1, img);
-    }
+
+        //write buffer in file img
+        if (fileopen == 1)
+        {
+            continue;
+        }
+        else
+        {
+            fwrite(buffer, 512, 1, img);
+        }
     }
 
-//close file
-fclose(f);
-fclose(img);
-return 0;
+    //close file
+    fclose(f);
+    fclose(img);
+    return 0;
 }
