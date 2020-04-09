@@ -31,26 +31,24 @@ int words = 0;
 bool check(const char *word)
 {
     //make temporary node
-    node *check = malloc(sizeof(node));
-    if (check == NULL)
+    node *checker = malloc(sizeof(node));
+    if (checker == NULL)
     {
         return 1;
     }
 
     int hashed = hash(word);
 
-    check = table[hashed];
+    checker = table[hashed];
 
-    while (check != NULL)
+    while (checker != NULL)
     {
-        if (strcasecmp(check->word, word) == 0)
+        if (strcasecmp(checker->word, word) == 0)
         {
-            free(check);
             return true;
         }
-        check = check->next;
+        checker = checker->next;
     }
-    free(check);
     return false;
 }
 
