@@ -29,16 +29,17 @@ int words = 0;
 
 // Returns true if word is in dictionary else false
 bool check(const char *word)
-{   
-    int hashed = hash(word);
+{
     //make temporary node
-    node *checker = table[hashed];
+    node *checker = malloc(sizeof(node));
     if (checker == NULL)
     {
         return 1;
     }
 
-    
+    int hashed = hash(word);
+
+    checker = table[hashed];
 
     while (checker != NULL)
     {
@@ -142,7 +143,6 @@ bool unload(void)
             cursor = cursor->next;
             free(tmp);
         }
-
         // clean the hashtable
         table[i] = NULL;
     }
