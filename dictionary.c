@@ -31,26 +31,26 @@ int words = 0;
 bool check(const char *word)
 {
     //make temporary node
-    node *temp = malloc(sizeof(node));
-    if (temp == NULL)
+    node *check = malloc(sizeof(node));
+    if (check == NULL)
     {
         return 1;
     }
 
     int hashed = hash(word);
 
-    temp = table[hashed];
+    check = table[hashed];
 
-    while (temp != NULL)
+    while (check != NULL)
     {
-        if (strcasecmp(temp->word, word) == 0)
+        if (strcasecmp(check->word, word) == 0)
         {
-            free(temp);
+            free(check);
             return true;
         }
-        temp = temp->next;
+        check = check->next;
     }
-    free(temp);
+    free(check);
     return false;
 }
 
@@ -139,15 +139,16 @@ bool unload(void)
         // place the cursor
         cursor = table[i];
 
-        while (cursor != NULL)
+        while (cursor)
         {
             node *tmp = cursor;
             cursor = cursor->next;
             free(tmp);
+            return true;
         }
 
         // clean the hashtable
         table[i] = NULL;
     }
-    return true;
+    return false;
 }
