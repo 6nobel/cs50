@@ -81,7 +81,6 @@ bool load(const char *dictionary)
         printf("can't load dictionary\n");
         return 1;
     }
-    return false;
 
     //temporary array
     char temp[LENGTH+1];
