@@ -80,13 +80,14 @@ bool load(const char *dictionary)
     {
         printf("can't load dictionary\n");
         return 1;
+
     }
 
     //temporary array
     char temp[LENGTH+1];
 
     //scan until end of file
-    while(fscanf(d, "%s\n", temp) != 0)
+    while(fscanf(d, "%s\n", temp) != EOF)
     {
         //make new node
         node *n = malloc(sizeof(node));
@@ -117,7 +118,7 @@ bool load(const char *dictionary)
         words++;
     }
     fclose(d);
-    return 0;
+    return true;
 }
 
 // Returns number of words in dictionary if loaded else 0 if not yet loaded
