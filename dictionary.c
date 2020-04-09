@@ -144,11 +144,10 @@ bool unload(void)
             node *tmp = cursor;
             cursor = cursor->next;
             free(tmp);
-            return true;
         }
 
         // clean the hashtable
         table[i] = NULL;
     }
-    return false;
+    return true;
 }
