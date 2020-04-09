@@ -41,7 +41,7 @@ bool check(const char *word)
 
     temp = table[hashed];
 
-    while(temp != NULL)
+    while (temp != NULL)
     {
         if (strcasecmp(temp->word, word) == 0)
         {
@@ -63,9 +63,10 @@ unsigned int hash(const char *word)
 
     // sum ascii values
     for (int i = 0; word[i] != '\0'; i++)
+    {
         // search for lower cases words
         temp += tolower(word[i]);
-
+    }
     //change size to fit to hashtable
     return temp % N;
 }
@@ -84,10 +85,10 @@ bool load(const char *dictionary)
     }
 
     //temporary array
-    char temp[LENGTH+1];
+    char temp[LENGTH + 1];
 
     //scan until end of file
-    while(fscanf(d, "%s\n", temp) != EOF)
+    while (fscanf(d, "%s\n", temp) != EOF)
     {
         //make new node
         node *n = malloc(sizeof(node));
@@ -140,7 +141,7 @@ bool unload(void)
 
         while (cursor != NULL)
         {
-            node* tmp = cursor;
+            node *tmp = cursor;
             cursor = cursor->next;
             free(tmp);
         }
