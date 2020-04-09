@@ -45,10 +45,12 @@ bool check(const char *word)
     {
         if (strcasecmp(temp->word, word) == 0)
         {
+            free(temp);
             return true;
         }
         temp = temp->next;
     }
+    free(temp);
     return false;
 }
 
@@ -141,11 +143,10 @@ bool unload(void)
             node* tmp = cursor;
             cursor = cursor->next;
             free(tmp);
-            return true;
         }
 
         // clean the hashtable
         table[i] = NULL;
     }
-    return false;
+    return true;
 }
