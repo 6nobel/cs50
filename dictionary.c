@@ -41,8 +41,6 @@ bool check(const char *word)
 
     temp = table[hashed];
 
-    return false;
-
     while(temp != NULL)
     {
         if (strcasecmp(temp->word, word) == 0)
