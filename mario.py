@@ -1,6 +1,6 @@
 while True:
     h = int(input("Height:"))
-    if h > 1 and h < 9:
+    if h > 0 and h < 9:
         break
 
 for i in range(h):
