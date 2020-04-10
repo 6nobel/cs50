@@ -9,7 +9,7 @@ sentences = 0
 letters = 0
 
 sentences = string.count('.') + string.count('?') + string.count('!')
-letters = len(string) - string.count(' ') - string.count('.') - string.count('?') - string.count('!')
+letters = len(string) - string.count(' ') - string.count('.') - string.count('?') - string.count('!') - string.count(',')
 words = string.count(" ") + 1
 
 print (sentences)
