@@ -1,8 +1,9 @@
 while True:
-    h = int(input("Height:"))
-    if h > 0 and h < 9:
+    h = input("Height:")
+    if h.isdigit() and int(h) > 0 and int(h) < 9:
         break
 
+h = int(h)
 for i in range(h):
     for j in range(h-1, i, -1):
         print(" ", end="")
