@@ -26,8 +26,10 @@ for i in range(1, columns):
         if (database.fieldnames[i] * j) in txt:
             sequence_txt[i] = j
             break
+        
 #read database in such a way that it makes a list with values
 for row in database:
+    sequence_database = [0] * columns
     for i in range(1, columns):
         sequence_database[i] = int(row[database.fieldnames[i]])
         # compares list from sequences with list from databases and return names if matches
