@@ -9,30 +9,27 @@ reader = csv.DictReader(open(sys.argv[1]))
 columns = len(next(reader))
 reader = csv.DictReader(open(sys.argv[1]))
 rows = len(list(reader))
-database = csv.DictReader(open(sys.argv[1]))
 txt = open(sys.argv[2]).read()
+database = csv.DictReader(open(sys.argv[1]))
 
-counter = [0] * rows
+sequence_txt = [0] * columns
+sequence_database = [0] * columns
 names = [0] * rows
-current_row = 0
+found = False
+
+for i in range(1, columns):
+    for j in range(50, 0, -1):
+        if (database.fieldnames[i] * j) in txt:
+            sequence_txt[i] = j
+            break
 
 for row in database:
     for i in range(1, columns):
-        #print(int(row[database.fieldnames[i]])*database.fieldnames[i])
-        if (int(row[database.fieldnames[i]])*database.fieldnames[i]) in txt: 
-            counter[current_row] += 1
-            names[current_row] = (row[database.fieldnames[0]])
-            #print((row[database.fieldnames[0]]))
-    current_row += 1
+        sequence_database[i] = int(row[database.fieldnames[i]])
+        if sequence_database == sequence_txt:
+            print (row[database.fieldnames[0]])
+            found = True
+            break
 
-
-
-for i in range(1, rows):
-    if counter[i] == columns - 1:
-        print(names[i])
-        
-
-if max(counter) != columns - 1:
+if found == False:
     print('No match')
-    
-    
