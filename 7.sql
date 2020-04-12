@@ -1,1 +1,7 @@
-SELECT count(title), rating FROM ratings JOIN movies ON ratings.movie_id = movies.id WHERE rating > 0 AND year = 2010 ORDER BY rating DESC, title ASC;
+SELECT title, rating
+    FROM ratings
+    JOIN movies
+    ON ratings.movie_id = movies.id
+    WHERE rating > 0 AND year = 2010
+    ORDER BY rating DESC,
+    title ASC;
