@@ -44,8 +44,24 @@ if not os.environ.get("API_KEY"):
 @login_required
 def index():
     """Show portfolio of stocks"""
-    return apology("TODO")
+    rows = db.execute("SELECT cash FROM users WHERE id = :user_id", user_id=session["user_id"])
+    cash = rows[0]["cash"]
 
+    stocks = db.execute("SELECT symbol, sum(shares) as total_shares FROM transactions WHERE (user_id = :user_id) GROUP BY symbol HAVING total_shares > 0 ", user_id=session["user_id"])
+    quotes={}
+
+    total_stock_value = 0
+
+    for stock in stocks:
+        quotes[stock["symbol"]] = lookup(stock["symbol"])
+        request = lookup(stock["symbol"])
+        price = request["price"]
+        amount = stock["total_shares"]
+        total_stock_value += price * amount
+
+    total = cash + total_stock_value
+
+    return render_template("index.html", quotes=quotes, stocks=stocks, cash=cash, total=total)
 
 @app.route("/buy", methods=["GET", "POST"])
 @login_required
@@ -74,13 +90,13 @@ def buy():
         db.execute("UPDATE users SET cash = cash - :price WHERE id = :user_id", price = total, user_id=session["user_id"])
         db.execute("INSERT INTO transactions (user_id, symbol, price, shares) VALUES(:user_id, :symbol, :price, :shares)",
                     user_id=session["user_id"],
-                    symbol=request.form.get("symbol"),
+                    symbol=symbol["symbol"],
                     price=price,
                     shares=amount)
 
         flash("Done!")
 
-        return redirect("index")
+        return redirect("/")
 
     else:
         return render_template("buy.html")
@@ -91,7 +107,10 @@ def buy():
 @login_required
 def history():
     """Show history of transactions"""
-    return apology("TODO")
+    transactions = db.execute("SELECT symbol, shares, price, time FROM transactions WHERE user_id = :user_id ORDER BY time ASC",
+                                user_id=session["user_id"])
+
+    return render_template("history.html", transactions=transactions)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -202,8 +221,53 @@ def register():
 @login_required
 def sell():
     """Sell shares of stock"""
-    return apology("TODO")
+    if request.method == "POST":
+        symbol = lookup(request.form.get("symbol"))
+        if not symbol:
+            return apology("must provide valid Symbol", 400)
 
+        price = symbol["price"]
+
+        try:
+            amount = int(request.form.get("shares"))
+        except:
+            return apology("shares must be bigger than 0", 400)
+
+        total = price * amount
+
+        stocks = db.execute("SELECT symbol, sum(shares) as total_shares FROM transactions WHERE (user_id = :user_id) GROUP BY symbol HAVING total_shares > 0 ", user_id=session["user_id"])
+
+        for stock in stocks:
+            if (stock["symbol"] == (request.form.get("symbol")).upper and stock["total_shares"] < int(request.form.get("shares"))):
+                return apology("can not sell more than you own", 400)
+
+        db.execute("UPDATE users SET cash = cash + :price WHERE id = :user_id", price = total, user_id=session["user_id"])
+        db.execute("INSERT INTO transactions (user_id, symbol, price, shares) VALUES(:user_id, :symbol, :price, :shares)",
+                    user_id=session["user_id"],
+                    symbol=request.form.get("symbol"),
+                    price=price,
+                    shares = (0 - amount))
+
+        flash("Done!")
+
+        return redirect("/")
+
+    else:
+        return render_template("sell.html")
+
+@app.route("/add", methods=["GET", "POST"])
+def add():
+    """add money"""
+    if request.method == "POST":
+        cash = request.form.get("cash")
+        db.execute("UPDATE users SET cash = cash + :cash WHERE id = :user_id", cash = cash, user_id=session["user_id"])
+
+        flash("Done!")
+
+        return redirect("/")
+
+    else:
+        return render_template("add.html")
 
 def errorhandler(e):
     """Handle error"""
