@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <title>Gasoline prices ALPHA: {% block title %}{% endblock %}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    </head>
+    <style>
+    .flex-container {
+      display: flex;
+      background-color: #f0f5f5;
+      justify-content: center;
+    }
+
+    .flex-container > div {
+    background-color: #99bbff;
+    margin: 10px;
+    padding: 20px;
+    font-size: 15px;
+    width: 400px;
+    }
+
+    .flex-container > .flex-item {
+    background-color: #99bbff;
+    margin: 10px;
+    padding: 20px;
+    font-size: 15px;
+    width: 400px;
+    }
+
+    .br {
+    line-height: 15px;
+    }
+
+    </style>
+
+    {% block script %}{% endblock %}
+
+
+    <body>
+                <nav class="navbar navbar-default">
+                  <div class="container-fluid">
+                    <div class="navbar-header">
+                      <a class="navbar-brand" href="#">Gasoline prices ALPHA</a>
+                    </div>
+                    <ul class="nav navbar-nav">
+                      <li class="active"><a href="#">Home</a></li>
+                      <li><a href="LER">Leer</a></li>
+                      <li><a href="OL">Oldenburg</a></li>
+                      <li><a href="comparison">Comparison</a></li>
+                      <li><a href="prediction">Prediction Oldenburg</a></li>
+                    </ul>
+                  </div>
+                </nav>
+
+        {% if get_flashed_messages() %}
+            <header>
+                <div class="alert alert-primary border text-center" role="alert">
+                    {{ get_flashed_messages() | join(" ") }}
+                </div>
+            </header>
+        {% endif %}
+
+        <main class="container p-5">
+            {% block main %}{% endblock %}
+        </main>
+
+        <footer class="small text-center text-muted">
+            Data provided for free by <a href="https://tankerkoenig.de/"> Tankerkoenig</a>.
+        </footer>
+
+    </body>
+
+</html>
